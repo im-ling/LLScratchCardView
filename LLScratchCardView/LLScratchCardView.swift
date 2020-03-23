@@ -59,8 +59,8 @@ class LLScratchCardView: UIView {
         self.maskImage = maskImage
         maskImageView.image = maskImage
         let sizeAfterFix = maskImage.size.ll_cropToSize(to: maskImageView.size)
-            maskImageAfterCrop = maskImage.crop(toRect: sizeAfterFix)
-        }
+        maskImageAfterCrop = maskImage.crop(toRect: sizeAfterFix)
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -130,6 +130,17 @@ class LLScratchCardView: UIView {
     var maskImageAfterCrop: UIImage?
     
     func snapshot() -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0.0)
+        guard let ctx = UIGraphicsGetCurrentContext() else {
+            return nil
+        }
+        layer.render(in: ctx)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+    
+    func snapshotLossless() -> UIImage? {
         if currentIndex == 0 {
             return maskImageAfterCrop
         }

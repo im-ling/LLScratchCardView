@@ -17,7 +17,7 @@ extension UIImage {
         }
     }
     
-    func crop(toRect rect:CGRect) -> UIImage?{
+    func crop(toRect rect:CGRect) -> UIImage? {
         if rect.origin == CGPoint.zero && self.size == rect.size {
             return self
         }
