@@ -27,8 +27,11 @@ class LLScratchCardView: UIView {
         }
     }
 
-    
+    // undo, redo, reset related
+    var currentIndex = 0
+    var operationCount = 0
     fileprivate var fingerPath = CGMutablePath()
+    fileprivate var fingerPathArray = [CGMutablePath]()
     fileprivate let shapeLayer = CAShapeLayer()
     fileprivate let originalImageView = UIImageView()
     fileprivate let coverView = UIImageView()
@@ -49,7 +52,7 @@ class LLScratchCardView: UIView {
         setupUI()
     }
 
-    fileprivate func setupUI(){
+    fileprivate func setupUI() {
         originalImageView.frame = frame
         originalImageView.contentMode = .scaleAspectFit
         coverView.frame = frame
@@ -68,6 +71,43 @@ class LLScratchCardView: UIView {
         // testcode
         coverView.backgroundColor = .blue
         originalImageView.backgroundColor = .orange
+        
+        reset()
+    }
+    
+    func undo() {
+        if currentIndex == 0 {
+            return
+        }
+        currentIndex -= 1
+        fingerPath = fingerPathArray[currentIndex].mutableCopy()!
+        shapeLayer.path = fingerPath
+    }
+    
+    func canRedo() -> Bool {
+        return currentIndex < operationCount
+    }
+    
+    func canUndo() -> Bool {
+        return currentIndex > 0
+    }
+    
+    func redo() {
+        if currentIndex == operationCount {
+            return
+        }
+        currentIndex += 1
+        fingerPath = fingerPathArray[currentIndex].mutableCopy()!
+        shapeLayer.path = fingerPath
+    }
+    
+    func reset() {
+        fingerPath = CGMutablePath()
+        shapeLayer.path = fingerPath
+        fingerPathArray.removeAll()
+        fingerPathArray.append(CGMutablePath())
+        currentIndex = 0
+        operationCount = 0
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -79,9 +119,22 @@ class LLScratchCardView: UIView {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
         let point = touches.first!.location(in: self)
-        self.fingerPath.addLine(to: point)
-        self.shapeLayer.path = self.fingerPath
-    }    
+        fingerPath.addLine(to: point)
+        shapeLayer.path = fingerPath
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        if operationCount > currentIndex {
+            while fingerPathArray.count > currentIndex + 1{
+                fingerPathArray.removeLast()
+            }
+        }
+        currentIndex += 1
+        operationCount = currentIndex
+        fingerPathArray.append(fingerPath.mutableCopy()!)
+    }
+    
     
     var lineCap = CAShapeLayerLineCap.butt {
         didSet{
