@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     }
     
     func setupUI() {
-        guard let originalImage = UIImage.init(named: "tifa"), let maskImage = UIImage.init(named: "ff7cover") else { return }
+        guard let originalImage = UIImage.init(named: "tifa"), let maskImage = UIImage.init(named: "aerith") else { return }
         scratchView = LLScratchCardView.init(frame: view.frame, originalImage: originalImage, maskImage: maskImage)
         view.addSubview(scratchView!)
 
