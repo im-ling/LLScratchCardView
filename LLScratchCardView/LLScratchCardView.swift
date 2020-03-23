@@ -25,11 +25,11 @@ class LLScratchCardView: UIView {
             }
         }
     }
-    var imageRatio:CGFloat = 1.0
+    fileprivate var imageRatio:CGFloat = 1.0
 
     var maskImage: UIImage? {
         didSet{
-            self.coverView.image = self.maskImage
+            self.maskImageView.image = self.maskImage
         }
     }
 
@@ -40,20 +40,27 @@ class LLScratchCardView: UIView {
     fileprivate var fingerPathArray = [CGMutablePath]()
     fileprivate let shapeLayer = CAShapeLayer()
     fileprivate let originalImageView = UIImageView()
-    let coverView = UIImageView()
+    let maskImageView = UIImageView()
     fileprivate var finderPathAllPoints = [[CGPoint]]()
     
+    
+    // initialization
     init(frame: CGRect, originalImage: UIImage, maskImage: UIImage) {
         super.init(frame: frame)
         setupUI()
         self.originalImage = originalImage
-        self.maskImage = maskImage
         originalImageView.image = originalImage
-        coverView.image = maskImage
+        
         let widthRatio = 1.0 * originalImage.size.width / originalImageView.frame.size.width
         let heightRatio = 1.0 * originalImage.size.height / originalImageView.frame.size.height
         self.imageRatio = widthRatio > heightRatio ? widthRatio : heightRatio
-    }
+        
+        
+        self.maskImage = maskImage
+        maskImageView.image = maskImage
+        let sizeAfterFix = maskImage.size.ll_cropToSize(to: maskImageView.size)
+            maskImageAfterCrop = maskImage.crop(toRect: sizeAfterFix)
+        }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -68,15 +75,10 @@ class LLScratchCardView: UIView {
         originalImageView.frame = frame
         originalImageView.contentMode = .scaleAspectFit
         originalImageView.backgroundColor = .black
-        coverView.frame = frame
-        coverView.contentMode = .scaleAspectFill
-        layer.addSublayer(coverView.layer)
+        maskImageView.frame = frame
+        maskImageView.contentMode = .scaleAspectFill
+        layer.addSublayer(maskImageView.layer)
         layer.addSublayer(originalImageView.layer)
-        
-//        let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 100, height: 100))
-//        imageView.image = blackImage
-//        imageView.contentMode = .scaleAspectFill
-//        layer.addSublayer(imageView.layer)
         
         originalImageView.layer.mask = shapeLayer
         shapeLayer.frame = frame
@@ -125,10 +127,7 @@ class LLScratchCardView: UIView {
         operationCount = 0
     }
     
-    lazy var maskImageAfterCrop = { () -> UIImage? in
-        guard let sizeAfterFix = maskImage?.size.ll_cropToSize(to: coverView.size) else { return maskImage}
-        return maskImage?.crop(to: sizeAfterFix)
-    }()
+    var maskImageAfterCrop: UIImage?
     
     func snapshot() -> UIImage? {
         if currentIndex == 0 {
@@ -178,9 +177,13 @@ class LLScratchCardView: UIView {
         
         
         let result = renderer1.image { ctx in
-            let blackImage = UIImage.imageWithColorSize(color: originalImageView.backgroundColor ?? UIColor.black, size: CGSize.init(width: 1, height: 1))
-            blackImage.draw(in: CGRect.init(origin: CGPoint.zero, size: newSize))
-            originalImage?.draw(in: CGRect.init(origin: point, size: size))
+            if nil != originalImage {
+                if originalImage!.size.width / newSize.width != originalImage!.size.height / newSize.height {
+                    let blackImage = UIImage.imageWithColorSize(color: originalImageView.backgroundColor ?? UIColor.black, size: CGSize.init(width: 1, height: 1))
+                    blackImage.draw(in: CGRect.init(origin: CGPoint.zero, size: newSize))
+                }
+                originalImage?.draw(in: CGRect.init(origin: point, size: size))
+            }
             topImage.draw(in: CGRect.init(origin: CGPoint.zero, size: newSize))
         }
 
@@ -257,7 +260,7 @@ class LLScratchCardView: UIView {
     override var frame: CGRect{
         didSet{
             originalImageView.frame = frame
-            coverView.frame = frame
+            maskImageView.frame = frame
         }
     }
     

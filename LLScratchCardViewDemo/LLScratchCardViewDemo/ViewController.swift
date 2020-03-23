@@ -19,15 +19,14 @@ class ViewController: UIViewController {
     
     func setupUI() {
         guard let originalImage = UIImage.init(named: "tifa"), let maskImage = UIImage.init(named: "ff7cover") else { return }
-        print("originalImage.size")
-        print(originalImage.size)
         scratchView = LLScratchCardView.init(frame: view.frame, originalImage: originalImage, maskImage: maskImage)
         view.addSubview(scratchView!)
 
-        let undoBtn = UIButton.init(title: "Undo", target: self, action: #selector(undoButtionClickAction(sender:)))
-        let resetBtn = UIButton.init(title: "Reset", target: self, action: #selector(reset))
-        let redoBtn = UIButton.init(title: "Redo", target: self, action: #selector(redoClickAction(sender:)))
-        let doneBtn = UIButton.init(title: "Done", target: self, action: #selector(doneButtonClickAction(sender:)))
+        let tintColor = UIColor.colorWithHex(hex: 0x6A81F9)
+        let undoBtn = UIButton.ll_button(title: "Undo", target: self, action: #selector(undoButtionClickAction(sender:)), color: tintColor)
+        let resetBtn = UIButton.ll_button(title: "Reset", target: self, action: #selector(reset), color: tintColor)
+        let redoBtn = UIButton.ll_button(title: "Redo", target: self, action: #selector(redoClickAction(sender:)), color:  tintColor)
+        let doneBtn = UIButton.ll_button(title: "Done", target: self, action: #selector(doneButtonClickAction(sender:)), color: tintColor)
 
         let height:CGFloat = 45.0
         let toolBar = UIToolbar.init(frame: CGRect.init(x: 0, y: UIApplication.shared.statusBarFrame.size.height, width: view.width, height: height ))
