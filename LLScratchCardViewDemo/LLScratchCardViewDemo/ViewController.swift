@@ -12,6 +12,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let scratchView = LLScratchCardView.init(frame: view.frame)
+        view.addSubview(scratchView)
         // Do any additional setup after loading the view.
     }
 
