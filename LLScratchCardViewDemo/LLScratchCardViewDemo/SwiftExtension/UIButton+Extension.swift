@@ -25,6 +25,7 @@ extension UIButton{
     convenience init(title:String,target:Any?,action:Selector){
         self.init()
         setTitle(title, for: .normal)
+        setTitleColor(.blue, for: .normal)
         addTarget(target, action:action, for: .touchUpInside)
         sizeToFit()
     }

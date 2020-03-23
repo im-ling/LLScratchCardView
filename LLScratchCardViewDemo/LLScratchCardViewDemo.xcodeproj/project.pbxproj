@@ -17,10 +17,13 @@
 		94971F9624285FBF00CB1FF7 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94971F8F24285FBF00CB1FF7 /* UIColor+Extension.swift */; };
 		94971F9824285FBF00CB1FF7 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94971F9124285FBF00CB1FF7 /* UIButton+Extension.swift */; };
 		94971F9924285FC000CB1FF7 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94971F9224285FBF00CB1FF7 /* UIView+Extension.swift */; };
+		94971F9F2428840600CB1FF7 /* ResultImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94971F9E2428840600CB1FF7 /* ResultImageController.swift */; };
+		94971FA12428B33600CB1FF7 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94971FA02428B33600CB1FF7 /* UIImage+Extension.swift */; };
+		94971FA32428B73200CB1FF7 /* StructExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94971FA22428B73200CB1FF7 /* StructExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		94971F6D24275D5000CB1FF7 /* LLScratchCardViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LLScratchCardViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		94971F6D24275D5000CB1FF7 /* LLScratchCardViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = LLScratchCardViewDemo.app; path = "/Users/Now/LLScratchCardView/LLScratchCardViewDemo/build/Debug-iphoneos/LLScratchCardViewDemo.app"; sourceTree = "<absolute>"; };
 		94971F7024275D5000CB1FF7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94971F7224275D5000CB1FF7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		94971F7424275D5000CB1FF7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -32,6 +35,9 @@
 		94971F8F24285FBF00CB1FF7 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		94971F9124285FBF00CB1FF7 /* UIButton+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		94971F9224285FBF00CB1FF7 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		94971F9E2428840600CB1FF7 /* ResultImageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultImageController.swift; sourceTree = "<group>"; };
+		94971FA02428B33600CB1FF7 /* UIImage+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		94971FA22428B73200CB1FF7 /* StructExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,16 +56,7 @@
 			children = (
 				94971F8A2428501D00CB1FF7 /* LLScratchCardView */,
 				94971F6F24275D5000CB1FF7 /* LLScratchCardViewDemo */,
-				94971F6E24275D5000CB1FF7 /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		94971F6E24275D5000CB1FF7 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				94971F6D24275D5000CB1FF7 /* LLScratchCardViewDemo.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		94971F6F24275D5000CB1FF7 /* LLScratchCardViewDemo */ = {
@@ -73,6 +70,7 @@
 				94971F7924275D5100CB1FF7 /* Assets.xcassets */,
 				94971F7B24275D5100CB1FF7 /* LaunchScreen.storyboard */,
 				94971F7E24275D5100CB1FF7 /* Info.plist */,
+				94971F9E2428840600CB1FF7 /* ResultImageController.swift */,
 			);
 			path = LLScratchCardViewDemo;
 			sourceTree = "<group>";
@@ -80,6 +78,8 @@
 		94971F8A2428501D00CB1FF7 /* LLScratchCardView */ = {
 			isa = PBXGroup;
 			children = (
+				94971FA22428B73200CB1FF7 /* StructExtension.swift */,
+				94971FA02428B33600CB1FF7 /* UIImage+Extension.swift */,
 				94971F8B2428501D00CB1FF7 /* LLScratchCardView.swift */,
 			);
 			name = LLScratchCardView;
@@ -140,7 +140,7 @@
 				Base,
 			);
 			mainGroup = 94971F6424275D5000CB1FF7;
-			productRefGroup = 94971F6E24275D5000CB1FF7 /* Products */;
+			productRefGroup = 94971F6424275D5000CB1FF7;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -170,10 +170,13 @@
 				94971F7524275D5000CB1FF7 /* ViewController.swift in Sources */,
 				94971F7124275D5000CB1FF7 /* AppDelegate.swift in Sources */,
 				94971F7324275D5000CB1FF7 /* SceneDelegate.swift in Sources */,
+				94971FA12428B33600CB1FF7 /* UIImage+Extension.swift in Sources */,
 				94971F9924285FC000CB1FF7 /* UIView+Extension.swift in Sources */,
 				94971F9624285FBF00CB1FF7 /* UIColor+Extension.swift in Sources */,
 				94971F9824285FBF00CB1FF7 /* UIButton+Extension.swift in Sources */,
 				94971F8C2428501D00CB1FF7 /* LLScratchCardView.swift in Sources */,
+				94971FA32428B73200CB1FF7 /* StructExtension.swift in Sources */,
+				94971F9F2428840600CB1FF7 /* ResultImageController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
