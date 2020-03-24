@@ -58,7 +58,7 @@ class LLScratchCardView: UIView {
         
         self.maskImage = maskImage
         maskImageView.image = maskImage
-        let sizeAfterFix = maskImage.size.ll_cropToSize(to: maskImageView.size)
+        let sizeAfterFix = maskImage.size.ll_getRectAfterCropToSize(to: maskImageView.size)
         maskImageAfterCrop = maskImage.crop(toRect: sizeAfterFix)
     }
     

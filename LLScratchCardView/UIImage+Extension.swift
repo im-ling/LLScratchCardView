@@ -16,7 +16,17 @@ extension UIImage {
             UIRectFill(CGRect.init(origin: CGPoint.zero, size: size))
         }
     }
-    
+
+    func ll_getAspectFillImage(imageViewSize: CGSize?) -> UIImage? {
+        guard let imageViewSize = imageViewSize else { return self }
+        var size = self.size
+        if size.width < imageViewSize.width || size.height < imageViewSize.height {
+            size = size.ll_aspectExtend(to: imageViewSize)
+        }
+        let rect = size.ll_getRectAfterCropToSize(to: imageViewSize)
+        return self.crop(toRect: rect)
+    }
+
     func crop(toRect rect:CGRect) -> UIImage? {
         if rect.origin == CGPoint.zero && self.size == rect.size {
             return self

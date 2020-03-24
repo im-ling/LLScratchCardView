@@ -20,7 +20,7 @@ extension CGSize {
         return newSize
     }
     
-    func ll_cropToSize(to size:CGSize) -> CGRect {
+    func ll_getRectAfterCropToSize(to size:CGSize) -> CGRect {
         var point = CGPoint.zero
         var newSize = CGSize.init(width: width, height: height)
         let wScale = width / size.width
@@ -35,4 +35,3 @@ extension CGSize {
         return CGRect.init(origin: point, size: newSize)
     }
 }
-

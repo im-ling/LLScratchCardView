@@ -18,7 +18,8 @@ class ViewController: UIViewController {
     }
     
     func setupUI() {
-        guard let originalImage = UIImage.init(named: "tifa"), let maskImage = UIImage.init(named: "aerith") else { return }
+        guard let originalImage = UIImage.init(named: "tifa")?.ll_getAspectFillImage(imageViewSize: view.size),
+            let maskImage = UIImage.init(named: "aerith")?.ll_getAspectFillImage(imageViewSize: view.size) else { return }
         scratchView = LLScratchCardView.init(frame: view.frame, originalImage: originalImage, maskImage: maskImage)
         view.addSubview(scratchView!)
 
@@ -29,7 +30,7 @@ class ViewController: UIViewController {
         let doneBtn = UIButton.ll_button(title: "Done", target: self, action: #selector(doneButtonClickAction(sender:)), color: tintColor)
 
         let height:CGFloat = 45.0
-        let toolBar = UIToolbar.init(frame: CGRect.init(x: 0, y: UIApplication.shared.statusBarFrame.size.height, width: view.width, height: height ))
+        let toolBar = UIToolbar.init(frame: CGRect.init(x: 0, y: view.height - height - UIApplication.shared.statusBarFrame.size.height, width: view.width, height: height ))
         view.addSubview(toolBar)
         
         var barItems = [UIBarButtonItem]()
