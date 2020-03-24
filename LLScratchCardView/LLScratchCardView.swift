@@ -8,7 +8,14 @@
 
 import UIKit
 
+@objc protocol LLScratchCardViewDelegate {
+    @objc optional func scratchCardView(_ view: LLScratchCardView, didStartScratchingAt point: CGPoint)
+    @objc optional func scratchCardView(_ view: LLScratchCardView, didScratchTo point: CGPoint)
+    @objc optional func scratchCardViewDidEndScratching(_ view: LLScratchCardView)
+}
+
 class LLScratchCardView: UIView {
+    
     var lineWidth: CGFloat = 40.0 {
         didSet{
             shapeLayer.lineWidth = lineWidth
@@ -201,6 +208,9 @@ class LLScratchCardView: UIView {
         return result
     }
     
+    
+    weak var delegate: LLScratchCardViewDelegate?
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if operationCount > currentIndex {
             while fingerPathArray.count > currentIndex + 1{
@@ -215,6 +225,8 @@ class LLScratchCardView: UIView {
         let point = touches.first!.location(in: self)
         fingerPath.move(to: point)
         finderPathAllPoints.append([point])
+        
+        delegate?.scratchCardView?(self, didStartScratchingAt: point)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -223,6 +235,8 @@ class LLScratchCardView: UIView {
         fingerPath.addLine(to: point)
         shapeLayer.path = fingerPath
         finderPathAllPoints[finderPathAllPoints.count - 1].append(point)
+        
+        delegate?.scratchCardView?(self, didScratchTo: point)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -230,6 +244,8 @@ class LLScratchCardView: UIView {
         currentIndex += 1
         operationCount = currentIndex
         fingerPathArray.append(fingerPath.mutableCopy()!)
+        
+        delegate?.scratchCardViewDidEndScratching?(self)
     }
     
     
