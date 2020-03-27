@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     }
     
     func setupUI() {
+        
         let frame = view.frame
         guard let originalImage = UIImage.init(named: "tifa")?.ll_getAspectFillImage(imageViewSize: frame.size),
             let maskImage = UIImage.init(named: "ff7")?.ll_getAspectFillImage(imageViewSize: frame.size) else { return }
